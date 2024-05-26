@@ -3,6 +3,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     [SerializeField] private float speed = 10;
+    [SerializeField] private float damage = 1;
     [SerializeField] private LayerMask collisionMask;
 
     public void SetSpeed(float newSpeed)
@@ -30,7 +31,12 @@ public class Projectile : MonoBehaviour
 
     private void OnHitObject(RaycastHit hit)
     {
-        Debug.Log(hit.collider.gameObject.name);
+        //Debug.Log(hit.collider.gameObject.name);
+        IDamageable damageableObject = hit.collider.GetComponent<IDamageable>();
+        if (damageableObject != null)
+        {
+            damageableObject.TakeHit(damage, hit);
+        }
         GameObject.Destroy(gameObject);
     }
 }
