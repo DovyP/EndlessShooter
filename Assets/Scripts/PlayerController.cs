@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     private void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
-        //asd
     }
 
     private void FixedUpdate()

@@ -6,12 +6,14 @@ using UnityEngine.AI;
 public class Enemy : LivingEntity
 {
     private NavMeshAgent pathfinder;
-    [SerializeField] private Transform target;
+    private Transform target;
     [SerializeField] private float refreshRate = .25f;
 
     protected override void Start()
     {
         base.Start();
+        // change later
+        target = GameObject.FindGameObjectWithTag("Player").transform;
         pathfinder = GetComponent<NavMeshAgent>();
         StartCoroutine(UpdatePath());
     }
