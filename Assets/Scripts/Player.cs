@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [RequireComponent (typeof(PlayerController))]
+[RequireComponent (typeof(GunController))]
 public class Player : MonoBehaviour
 {
     [Header("-- Player Stats --")]
@@ -9,12 +10,14 @@ public class Player : MonoBehaviour
 
     // references
     private PlayerController controller;
+    private GunController gunController;
     private Camera viewCamera;
     private LayerMask groundLayerMask;
 
     private void Start()
     {
         controller = GetComponent<PlayerController>();
+        gunController = GetComponent<GunController>();
         groundLayerMask = LayerMask.GetMask("Ground");
         viewCamera = Camera.main;
     }
@@ -33,6 +36,13 @@ public class Player : MonoBehaviour
             Vector3 point = hit.point;
             Debug.DrawLine(ray.origin, point, Color.red);
             controller.LookAt(point);
+        }
+
+        // weapon input
+        if (Input.GetMouseButton(0))
+        {
+            // change to event for SOLID principles
+            gunController.Shoot();
         }
     }
 }
