@@ -1,7 +1,7 @@
 using UnityEngine;
 
-[RequireComponent (typeof(PlayerController))]
-[RequireComponent (typeof(GunController))]
+[RequireComponent(typeof(PlayerController))]
+[RequireComponent(typeof(GunController))]
 public class Player : LivingEntity
 {
     [Header("-- Player Stats --")]
