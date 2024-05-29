@@ -33,7 +33,7 @@ public class Enemy : LivingEntity
         pathfinder = GetComponent<NavMeshAgent>();
         skinMaterial = GetComponentInChildren<Renderer>().material;
         originalColor = skinMaterial.color;
-
+        
         if (GameObject.FindGameObjectWithTag("Player") != null)
         {
             currentState = State.Chasing;
