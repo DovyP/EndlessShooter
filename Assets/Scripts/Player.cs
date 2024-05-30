@@ -12,14 +12,12 @@ public class Player : LivingEntity
     private PlayerController controller;
     private GunController gunController;
     private Camera viewCamera;
-    private LayerMask groundLayerMask;
 
     protected override void Start()
     {
         base.Start();
         controller = GetComponent<PlayerController>();
         gunController = GetComponent<GunController>();
-        groundLayerMask = LayerMask.GetMask("Ground");
         viewCamera = Camera.main;
     }
 
@@ -30,12 +28,15 @@ public class Player : LivingEntity
         Vector3 moveVelocity = moveInput.normalized * moveSpeed;
         controller.Move(moveVelocity);
 
-        // mouse pos
         Ray ray = viewCamera.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, Mathf.Infinity, groundLayerMask))
+        Plane groundPlane = new Plane(Vector3.up, Vector3.zero);
+        float rayDistance;
+
+        if (groundPlane.Raycast(ray, out rayDistance))
         {
-            Vector3 point = hit.point;
+            Vector3 point = ray.GetPoint(rayDistance);
             Debug.DrawLine(ray.origin, point, Color.red);
+            Debug.DrawRay(ray.origin, ray.direction * 100, Color.red);
             controller.LookAt(point);
         }
 
